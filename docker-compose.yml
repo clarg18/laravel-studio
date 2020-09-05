@@ -64,6 +64,7 @@ services:
   composer:
     image: composer:latest
     container_name: composer
+    user: "${UID}${GID}"
     volumes:
       - ${PROJECT_DIR}:/var/www/html
     working_dir: /var/www/html

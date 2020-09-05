@@ -7,7 +7,17 @@ Laravel 7 boiler-plate code with docker containers for local development.
 ```
 git clone https://github.com/Glendog/laravel-studio.git
 ```
-2) [optional] replace src folder with your project files.
+2) copy the env settings
+```
+cp example.env .env
+```
+2) Copy project files to the src folder. If this is a new project, run:
+```
+docker-compose run --rm composer create-project --prefer-dist laravel/laravel [project name]
+```
+
+
+
 3) CD into the newly created directory.
 4) Install your project dependancies (if required)
 ```

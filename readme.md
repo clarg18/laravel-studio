@@ -15,13 +15,15 @@ cd laravel-studio
 ```
 cp example.env .env
 ```
-4) Copy project files to the src directory. 
-
-5) (a) If this is a new project, run:
+4) Create a new folder for the project files
+```
+mkdir src
+```
+5) (a) For a new project, run:
 ```
 docker-compose run --rm composer create-project --prefer-dist laravel/laravel .
 ```
-5) (b) If you copied existing project files, then you may need to generate a new key and install the dependancies
+5) (b) For an existing project, copy the source files to `./src` then you may need to generate a new key and install the dependancies
 ```
 docker-compose run --rm php artisan key:generate
 docker-compose run --rm composer install

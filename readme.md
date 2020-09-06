@@ -33,6 +33,8 @@ docker-compose run --rm composer install
 docker-compose up -d
 ```
 
+You can then access the web app from `localhost:8080` in your favourate browser!
+
 # Containers
 
 - nginx - :8080
@@ -49,3 +51,14 @@ You can use `composer`, `npm`, and `artisan` in the following ways:
 - `docker-compose run --rm composer update`
 - `docker-compose run --rm npm run dev`
 - `docker-compose run --rm artisan migrate`
+
+# Helpful commands
+
+Show running containers
+`docker ps`
+Show all containers
+`docker container ls`
+Close all running containers
+`docker stop $(docker ps -a -q)`
+Remove all containers
+`docker rm $(docker ps -a -q)`

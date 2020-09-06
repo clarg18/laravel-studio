@@ -67,6 +67,7 @@ services:
     user: "${HOST_UID}:${HOST_GID}"
     volumes:
       - "${PROJECT_DIR}:/var/www/html"
+      - "${COMPOSER_HOME}:/tmp"
     working_dir: /var/www/html
     depends_on:
       - php

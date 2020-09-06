@@ -11,24 +11,20 @@ git clone https://github.com/Glendog/laravel-studio.git
 ```
 cd laravel-studio
 ```
-3) copy the env settings from the example provided
+3) Run the setup script.
 ```
-cp example.env .env
+./setup.sh
 ```
-4) Create a new folder for the project files
-```
-mkdir src
-```
-5) (a) For a new project, run:
+4) (a) For a new project, run:
 ```
 docker-compose run --rm composer create-project --prefer-dist laravel/laravel .
 ```
-5) (b) For an existing project, copy the source files to `./src` then you may need to generate a new key and install the dependancies
+4) (b) For an existing project, copy the source files to `./src` then you may need to generate a new key and install the dependancies
 ```
 docker-compose run --rm php artisan key:generate
 docker-compose run --rm composer install
 ```
-6) Use docker-compose to build and bring up the containers.
+5) Use docker-compose to build and bring up the containers.
 ```
 docker-compose up -d
 ```

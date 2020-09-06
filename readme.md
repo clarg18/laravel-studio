@@ -55,13 +55,17 @@ You can use `composer`, `npm`, and `artisan` in the following ways:
 # Helpful commands
 
 Show running containers
+
 `docker ps`
 
 Show all containers
+
 `docker container ls`
 
 Close all running containers
+
 `docker stop $(docker ps -a -q)`
 
 Remove all containers
+
 `docker rm $(docker ps -a -q)`

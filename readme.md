@@ -7,6 +7,11 @@ Laravel 7 boiler-plate code with docker containers for local development.
 ```
 git clone https://github.com/Glendog/laravel-studio.git
 ```
+2) Enter directory
+```
+cd laravel-studio
+```
+
 2) copy the env settings
 ```
 cp example.env .env

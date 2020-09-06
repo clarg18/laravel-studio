@@ -40,7 +40,7 @@ services:
   php:
     image: php:7.4-fpm
     container_name: "${PROJECT_NAME}_php"
-    user: "${HOST_UID}${HOST_GID}"
+    user: "${HOST_UID}:${HOST_GID}"
     volumes:
       - "${PROJECT_DIR}:/var/www/html"
     ports:
@@ -51,7 +51,7 @@ services:
   artisan:
     image: php:7.4-fpm
     container_name: "${PROJECT_NAME}_artisan"
-    user: "${HOST_UID}${HOST_GID}"
+    user: "${HOST_UID}:${HOST_GID}"
     volumes:
       - "${PROJECT_DIR}:/var/www/html"
     depends_on:
@@ -64,7 +64,7 @@ services:
   composer:
     image: composer:latest
     container_name: "${PROJECT_NAME}_composer"
-    user: "${HOST_UID}${HOST_GID}"
+    user: "${HOST_UID}:${HOST_GID}"
     volumes:
       - "${PROJECT_DIR}:/var/www/html"
     working_dir: /var/www/html
@@ -76,6 +76,7 @@ services:
   npm:
     image: node:13.7
     container_name: "${PROJECT_NAME}_npm"
+    user: "${HOST_UID}:${HOST_GID}"
     volumes:
       - ${PROJECT_DIR}:/var/www/html
     working_dir: /var/www/html

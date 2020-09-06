@@ -17,15 +17,15 @@ cp example.env .env
 ```
 4) Copy project files to the src directory. 
 
-5a) If this is a new project, run:
+5) (a) If this is a new project, run:
 ```
 docker-compose run --rm composer create-project --prefer-dist laravel/laravel [project name]
 ```
-5b) Move the files to the src directory (Composer insists on creating a new folder)
+5) (b) Move the files to the src directory (Composer insists on creating a new folder)
 ```
 mv {./src/[project name]/*, ./src/[project name]/.*}  ./src
 ```
-5c) If you copied existing project files, then you may need to install the dependancies
+5) (c) If you copied existing project files, then you may need to install the dependancies
 ```
 docker-compose run --rm composer install
 ```

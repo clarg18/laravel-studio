@@ -19,8 +19,6 @@ cd laravel-studio
 ```
 docker-compose build
 ```
-
-
 4) (a) For a new project, run:
 ```
 docker-compose run --rm composer create-project --prefer-dist laravel/laravel .
@@ -28,8 +26,8 @@ docker-compose run --rm composer create-project --prefer-dist laravel/laravel .
 4) (b) For an existing project, copy the source files to `./src` then you may need to generate a new .env file, install the dependancies and generate the app key
 ```
 cp ./src/example.env ./src/.env
-docker-compose run --rm composer install
-docker-compose run --rm artisan key:generate
+docker-compose run php composer install
+docker-compose run php artisan key:generate
 ```
 5) Use docker-compose to build and bring up the containers.
 ```
@@ -56,13 +54,6 @@ COPY --from=composer /usr/bin/composer /usr/bin/composer
 ```
 
 https://github.com/mlocati/docker-php-extension-installer
-
-
-# Composer and PHP extensions
-
-You may have issues with composer and php extensions, as it will not know which extensions are installed on the php container. 
-
-You can therefore ignore platform reqs and/or scripts, if you know they are on the php container.
 
 # Containers
 

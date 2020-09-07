@@ -6,6 +6,7 @@ networks:
 services:
   nginx:
     image: nginx:stable-alpine
+    restart: unless-stopped
     ports:
       - "${WEB_PORT}:80"
     volumes:
@@ -41,9 +42,10 @@ services:
       context: ./docker
       dockerfile: Dockerfile-php
     user: "${HOST_UID}:${HOST_GID}"
-    entrypoint: ['php', '/var/www/html/artisan']
     volumes:
       - "${PROJECT_DIR}:/var/www/html"
+      - "${COMPOSER_CACHE_DIR}:/.composer/cache"
+      - "${COMPOSER_CONFIG}:/.composer/config"
     ports:
       - "9000:9000"
     networks:

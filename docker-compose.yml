@@ -6,7 +6,6 @@ networks:
 services:
   nginx:
     image: nginx:stable-alpine
-    container_name: "${PROJECT_NAME}_nginx"
     ports:
       - "${WEB_PORT}:80"
     volumes:
@@ -20,7 +19,6 @@ services:
 
   mysql:
     image: mysql:5.7.29
-    container_name: "${PROJECT_NAME}_mysql"
     restart: unless-stopped
     tty: true
     ports:
@@ -39,7 +37,6 @@ services:
 
   php:
     image: php:7.4-fpm
-    container_name: "${PROJECT_NAME}_php"
     user: "${HOST_UID}:${HOST_GID}"
     volumes:
       - "${PROJECT_DIR}:/var/www/html"
@@ -50,7 +47,6 @@ services:
 
   artisan:
     image: php:7.4-fpm
-    container_name: "${PROJECT_NAME}_artisan"
     user: "${HOST_UID}:${HOST_GID}"
     volumes:
       - "${PROJECT_DIR}:/var/www/html"
@@ -63,11 +59,10 @@ services:
       
   composer:
     image: composer:latest
-    container_name: "${PROJECT_NAME}_composer"
     user: "${HOST_UID}:${HOST_GID}"
     volumes:
       - "${PROJECT_DIR}:/var/www/html"
-      - "${COMPOSER_HOME}:/tmp"
+      #- "${COMPOSER_HOME}:/tmp"
     working_dir: /var/www/html
     entrypoint: ['composer']
     depends_on:
@@ -77,7 +72,6 @@ services:
 
   npm:
     image: node:13.7
-    container_name: "${PROJECT_NAME}_npm"
     user: "${HOST_UID}:${HOST_GID}"
     volumes:
       - ${PROJECT_DIR}:/var/www/html

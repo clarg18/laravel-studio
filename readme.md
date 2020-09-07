@@ -19,10 +19,11 @@ cd laravel-studio
 ```
 docker-compose run --rm composer create-project --prefer-dist laravel/laravel .
 ```
-4) (b) For an existing project, copy the source files to `./src` then you may need to generate a new key and install the dependancies
+4) (b) For an existing project, copy the source files to `./src` then you may need to generate a new .env file, install the dependancies and generate the app key
 ```
-docker-compose run --rm php artisan key:generate
+cp ./src/example.env ./src/.env
 docker-compose run --rm composer install
+docker-compose run --rm artisan key:generate
 ```
 5) Use docker-compose to build and bring up the containers.
 ```
@@ -30,6 +31,32 @@ docker-compose up -d
 ```
 
 You can then access the web app from `localhost:8080` in your favourate browser!
+
+# Adding PHP extension
+
+If you need to add additional PHP extensions, you can tell docker-compose add them to the php dockerfile 
+
+simple append any extension to the final line
+
+```
+FROM php:7.4-fpm
+    
+ADD https://raw.githubusercontent.com/mlocati/docker-php-extension-installer/master/install-php-extensions /usr/local/bin/
+
+RUN chmod uga+x /usr/local/bin/install-php-extensions && sync && \
+    install-php-extensions gd zip # add extensions here
+    
+COPY --from=composer /usr/bin/composer /usr/bin/composer
+```
+
+https://github.com/mlocati/docker-php-extension-installer
+
+
+# Composer and PHP extensions
+
+You may have issues with composer and php extensions, as it will not know which extensions are installed on the php container. 
+
+You can therefore ignore platform reqs and/or scripts, if you know they are on the php container.
 
 # Containers
 

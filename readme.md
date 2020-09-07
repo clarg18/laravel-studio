@@ -21,7 +21,7 @@ docker-compose build
 ```
 4) (a) For a new project, run:
 ```
-docker-compose run --rm composer create-project --prefer-dist laravel/laravel .
+docker-compose run --rm php composer create-project --prefer-dist laravel/laravel .
 ```
 4) (b) For an existing project, copy the source files to `./src` then you may need to generate a new .env file, install the dependancies and generate the app key
 ```

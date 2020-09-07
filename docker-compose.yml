@@ -69,6 +69,7 @@ services:
       - "${PROJECT_DIR}:/var/www/html"
       - "${COMPOSER_HOME}:/tmp"
     working_dir: /var/www/html
+    entrypoint: ['composer']
     depends_on:
       - php
     networks:

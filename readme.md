@@ -15,6 +15,12 @@ cd laravel-studio
 ```
 ./setup.sh
 ```
+4) Biuld the containers
+```
+docker-compose build
+```
+
+
 4) (a) For a new project, run:
 ```
 docker-compose run --rm composer create-project --prefer-dist laravel/laravel .

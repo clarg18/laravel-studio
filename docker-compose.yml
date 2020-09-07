@@ -20,6 +20,7 @@ services:
   mysql:
     image: mysql:5.7.29
     restart: unless-stopped
+    user: "${HOST_UID}:${HOST_GID}"
     tty: true
     ports:
       - "${SQL_PORT}:3306"
@@ -36,37 +37,15 @@ services:
       - laravel
 
   php:
-    image: php:7.4-fpm
+    build:
+      context: ./docker
+      dockerfile: Dockerfile-php
     user: "${HOST_UID}:${HOST_GID}"
+    entrypoint: ['php', '/var/www/html/artisan']
     volumes:
       - "${PROJECT_DIR}:/var/www/html"
     ports:
       - "9000:9000"
-    networks:
-      - laravel
-
-  artisan:
-    image: php:7.4-fpm
-    user: "${HOST_UID}:${HOST_GID}"
-    volumes:
-      - "${PROJECT_DIR}:/var/www/html"
-    depends_on:
-      - mysql
-    working_dir: /var/www/html
-    entrypoint: ['php', '/var/www/html/artisan']
-    networks:
-      - laravel
-      
-  composer:
-    image: composer:latest
-    user: "${HOST_UID}:${HOST_GID}"
-    volumes:
-      - "${PROJECT_DIR}:/var/www/html"
-      #- "${COMPOSER_HOME}:/tmp"
-    working_dir: /var/www/html
-    entrypoint: ['composer']
-    depends_on:
-      - php
     networks:
       - laravel
 

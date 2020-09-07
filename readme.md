@@ -25,9 +25,9 @@ docker-compose run --rm composer create-project --prefer-dist laravel/laravel .
 ```
 4) (b) For an existing project, copy the source files to `./src` then you may need to generate a new .env file, install the dependancies and generate the app key
 ```
-cp ./src/example.env ./src/.env
-docker-compose run php composer install
-docker-compose run php artisan key:generate
+cp ./src/.env.example ./src/.env
+docker-compose run --rm php composer install
+docker-compose run --rm php artisan key:generate
 ```
 5) Use docker-compose to build and bring up the containers.
 ```
@@ -55,6 +55,36 @@ COPY --from=composer /usr/bin/composer /usr/bin/composer
 
 https://github.com/mlocati/docker-php-extension-installer
 
+# Database connection
+
+Make sure your database settings within Laravel's .env file match the settings in the docker-compose 
+
+defaults are: 
+```
+MYSQL_DATABASE=homestead
+MYSQL_USER=homestead
+MYSQL_PASSWORD=secret
+MYSQL_ROOT_PASSWORD=secret
+```
+
+And the host is the name of the mysql service, which is `mysql` by default.
+
+# Persistent Composer Cache
+
+If you use composer from the containter and wish to have a persistent cache shared with the host. Uncomment these lines:
+
+ * .env
+```
+# COMPOSER_HOME=/home/glen/.config/composer
+# COMPOSER_CACHE_DIR=/home/glen/.cache/composer
+```
+
+ * docker-compose.yml
+```
+#- "${COMPOSER_CACHE_DIR}:/.composer/cache"
+#- "${COMPOSER_CONFIG}:/.composer/config"
+```
+
 # Containers
 
 - nginx - :8080
@@ -68,9 +98,9 @@ https://github.com/mlocati/docker-php-extension-installer
 
 You can use `composer`, `npm`, and `artisan` in the following ways:
 
-- `docker-compose run --rm composer update`
-- `docker-compose run --rm npm run dev`
-- `docker-compose run --rm artisan migrate`
+- `docker-compose run --rm php composer update`
+- `docker-compose run --rm npm npm run dev`
+- `docker-compose run --rm php php artisan migrate`
 
 # Helpful commands
 

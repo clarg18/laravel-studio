@@ -13,25 +13,25 @@ cd laravel-studio
 ```
 3) Run the setup script.
 ```
-./setup.sh
+make setup
 ```
 4) Biuld the containers
 ```
-docker-compose build
+make build
 ```
 4) (a) For a new project, run:
 ```
-docker-compose run --rm php composer create-project --prefer-dist laravel/laravel .
+make create-project
 ```
 4) (b) For an existing project, copy the source files to `./src` then you may need to generate a new .env file, install the dependancies and generate the app key
 ```
 cp ./src/.env.example ./src/.env
-docker-compose run --rm php composer install
-docker-compose run --rm php artisan key:generate
+make composer-install
+make artisan do="key:generate"
 ```
 5) Use docker-compose to build and bring up the containers.
 ```
-docker-compose up -d
+make up
 ```
 
 You can then access the web app from `localhost:8080` in your favourate browser!
@@ -71,18 +71,25 @@ And the host is the name of the mysql service, which is `mysql` by default.
 
 # Persistent Composer Cache
 
-If you use composer from the containter and wish to have a persistent cache shared with the host. Uncomment these lines:
+If you use composer from the containter and wish to have a persistent cache shared with the host. 
 
- * .env
+These locations should work with arch and arch dariviatives.
+
 ```
-# COMPOSER_HOME=/home/glen/.config/composer
-# COMPOSER_CACHE_DIR=/home/glen/.cache/composer
+make enable-composer-cache
 ```
 
- * docker-compose.yml
+and to disable:
+
 ```
-#- "${COMPOSER_CACHE_DIR}:/.composer/cache"
-#- "${COMPOSER_CONFIG}:/.composer/config"
+make disable-composer-cache
+```
+
+And then edit the locations in the .env file:
+
+```
+# COMPOSER_HOME=/home/[user]/.config/composer
+# COMPOSER_CACHE_DIR=/home/[user]/.cache/composer
 ```
 
 # Containers
@@ -98,11 +105,19 @@ If you use composer from the containter and wish to have a persistent cache shar
 
 You can use `composer`, `npm`, and `artisan` in the following ways:
 
-- `docker-compose run --rm php composer update`
-- `docker-compose run --rm npm npm run dev`
-- `docker-compose run --rm php php artisan migrate`
+- `make composer-update`
+- `make watch-poll`
 
-# Helpful commands
+As you cannot directly pass arguements with make, you can set the cmd variable as such:
+
+- `make artisan cmd="migrate"`
+
+this works for `make artisan`, `make npm` and `make composer`
+
+You can also read the Makefile for all the commands.
+
+
+# Helpful docker commands
 
 Show running containers
 

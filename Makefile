@@ -12,6 +12,21 @@ enable-composer-cache:
 disable-composer-cache:
 	./disable-cache.sh
 
+build: 
+	docker-compose build
+
+composer:
+	docker-compose run --rm php composer $(cmd)
+
+create-project:
+	docker-compose run --rm php composer create-project --prefer-dist laravel/laravel .
+
+composer-install:
+	docker-compose run --rm php composer install
+
+composer-update:
+	docker-compose run --rm php composer update
+
 up:
 	docker-compose up -d
 

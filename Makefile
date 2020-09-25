@@ -6,10 +6,10 @@ cmd=""
 setup:
 	./setup.sh
 
-enable:
+enable-composer-cache:
 	./enable-cache.sh
 
-disable:
+disable-composer-cache:
 	./disable-cache.sh
 
 up:

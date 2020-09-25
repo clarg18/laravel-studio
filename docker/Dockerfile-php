@@ -4,5 +4,6 @@ ADD https://raw.githubusercontent.com/mlocati/docker-php-extension-installer/mas
 
 RUN chmod uga+x /usr/local/bin/install-php-extensions && sync && \
     install-php-extensions gd zip pdo_mysql
-    
+  
 COPY --from=composer /usr/bin/composer /usr/bin/composer
+

@@ -13,6 +13,7 @@ services:
     volumes:
       - "${PROJECT_DIR}:/var/www/html"
       - "${NGINX_CONFIG}:/etc/nginx/conf.d/default.conf"
+      - ./docker/nginx/nginx.conf:/etc/nginx/nginx.conf
     depends_on:
       - php
       - mysql
@@ -45,8 +46,11 @@ services:
     user: "${HOST_UID}:${HOST_GID}"
     volumes:
       - "${PROJECT_DIR}:/var/www/html"
-      #- "${COMPOSER_CACHE_DIR}:/.composer/cache"
-      #- "${COMPOSER_CONFIG}:/.composer/config"
+      - ./docker/php/php.ini:/usr/local/etc/php/php.ini
+      - "${COMPOSER_CACHE_DIR}:/.composer/cache"
+      - "${COMPOSER_CONFIG}:/.composer/config"
+    working_dir: /var/www/html
+    entrypoint: ['php']
     networks:
       - laravel
 

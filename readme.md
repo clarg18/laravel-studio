@@ -43,12 +43,12 @@ If you need to add additional PHP extensions, you can tell docker-compose add th
 simple append any extension to the final line
 
 ```
-FROM php:7.4-fpm
-    
-ADD https://raw.githubusercontent.com/mlocati/docker-php-extension-installer/master/install-php-extensions /usr/local/bin/
+FROM php:8.0-fpm
 
-RUN chmod uga+x /usr/local/bin/install-php-extensions && sync && \
-    install-php-extensions gd zip # add extensions here
+ADD https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions /usr/local/bin/
+
+RUN chmod +x /usr/local/bin/install-php-extensions && \
+    install-php-extensions gd zip pdo_mysql # add extensions here
     
 COPY --from=composer /usr/bin/composer /usr/bin/composer
 ```
@@ -61,8 +61,8 @@ Make sure your database settings within Laravel's .env file match the settings i
 
 defaults are: 
 ```
-MYSQL_DATABASE=homestead
-MYSQL_USER=homestead
+MYSQL_DATABASE=laravel
+MYSQL_USER=laravel
 MYSQL_PASSWORD=secret
 MYSQL_ROOT_PASSWORD=secret
 ```
@@ -71,9 +71,9 @@ And the host is the name of the mysql service, which is `mysql` by default.
 
 # Persistent Composer Cache
 
-If you use composer from the containter and wish to have a persistent cache shared with the host. 
+If you use composer from the container and wish to have a persistent cache shared with the host. 
 
-These locations should work with arch and arch dariviatives.
+These locations should work with arch and arch derivatives.
 
 ```
 make enable-composer-cache
@@ -85,11 +85,11 @@ and to disable:
 make disable-composer-cache
 ```
 
-And then edit the locations in the .env file:
+If required, you can edit the host file locations in the .env file:
 
 ```
-# COMPOSER_HOME=/home/[user]/.config/composer
-# COMPOSER_CACHE_DIR=/home/[user]/.cache/composer
+COMPOSER_HOME=~/.config/composer
+COMPOSER_CACHE_DIR=~/.cache/composer
 ```
 
 # Containers
@@ -108,7 +108,7 @@ You can use `composer`, `npm`, and `artisan` in the following ways:
 - `make composer-update`
 - `make watch-poll`
 
-As you cannot directly pass arguements with make, you can set the cmd variable as such:
+As you cannot directly pass arguments with make, you can set the cmd variable as such:
 
 - `make artisan cmd="migrate"`
 

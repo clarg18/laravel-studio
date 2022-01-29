@@ -57,6 +57,6 @@ services:
     image: node:13.7
     user: "${HOST_UID}:${HOST_GID}"
     volumes:
-      - ${PROJECT_DIR}:/var/www/html
+      - "${PROJECT_DIR}:/var/www/html"
     working_dir: /var/www/html
     entrypoint: ['npm']

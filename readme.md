@@ -13,25 +13,25 @@ cd laravel-studio
 ```
 3) Run the setup script.
 ```
-make setup
+./studio setup
 ```
 4) Biuld the containers
 ```
-make build
+./studio build
 ```
 4) (a) For a new project, run:
 ```
-make create-project
+./studio composer create-project laravel/laravel example-app
 ```
 4) (b) For an existing project, copy the source files to `./src` then you may need to generate a new .env file, install the dependancies and generate the app key
 ```
 cp ./src/.env.example ./src/.env
-make composer-install
-make artisan do="key:generate"
+./studio composer install
+./studio artisan key:generate
 ```
 5) Use docker-compose to build and bring up the containers.
 ```
-make up
+./studio up
 ```
 
 You can then access the web app from `localhost:8080` in your favourate browser!
@@ -61,8 +61,8 @@ Make sure your database settings within Laravel's .env file match the settings i
 
 defaults are: 
 ```
-MYSQL_DATABASE=laravel
-MYSQL_USER=laravel
+MYSQL_DATABASE=studio
+MYSQL_USER=studio
 MYSQL_PASSWORD=secret
 MYSQL_ROOT_PASSWORD=secret
 ```
@@ -76,13 +76,13 @@ If you use composer from the container and wish to have a persistent cache share
 These locations should work with arch and arch derivatives.
 
 ```
-make enable-composer-cache
+..studio enable-composer-cache
 ```
 
 and to disable:
 
 ```
-make disable-composer-cache
+./studio disable-composer-cache
 ```
 
 If required, you can edit the host file locations in the .env file:
@@ -92,7 +92,7 @@ COMPOSER_HOME=~/.config/composer
 COMPOSER_CACHE_DIR=~/.cache/composer
 ```
 
-# Containers
+# Containers and port
 
 - nginx - :8080
 - mysql - :3306
@@ -105,17 +105,22 @@ COMPOSER_CACHE_DIR=~/.cache/composer
 
 You can use `composer`, `npm`, and `artisan` in the following ways:
 
-- `make composer-update`
-- `make watch-poll`
+- `./studio composer update`
+- `./studio npm watch-poll`
 
 As you cannot directly pass arguments with make, you can set the cmd variable as such:
 
-- `make artisan cmd="migrate"`
+- `./studio artisan migrate`
 
-this works for `make artisan`, `make npm` and `make composer`
+this works for `./studio artisan`, `./studio npm` and `./studio composer`
 
-You can also read the Makefile for all the commands.
+# Project source
 
+Laravel-studio can be installed to a directory within your project. Just edit the .env file, such as 
+
+```
+PROJECT_DIR=../
+```
 
 # Helpful docker commands
 

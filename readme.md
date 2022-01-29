@@ -19,22 +19,27 @@ cd laravel-studio
 ```
 ./studio build
 ```
-4) (a) For a new project, run:
+4) For a new project, run:
 ```
 ./studio composer create-project laravel/laravel example-app
 ```
-4) Use docker-compose to build and bring up the containers.
+
+5) Use docker-compose to build and bring up the containers.
 ```
 ./studio up -d
 ```
 
-5) (b) For an existing project, copy the source files to `./src` then you may need to generate a new .env file, install the dependancies and generate the app key
+You can then access the web app from `localhost:8080` in your favourate browser!
+
+# Existing project
+
+For an existing project, copy the source files to `./src` then you may need to generate a new .env file, install the dependancies and generate the app key
 ```
-cp ./src/.env.example ./src/.env #and any other installtions steps required for the project
+cp ./src/.env.example ./src/.env
 ./studio composer install
 ./studio artisan key:generate
+ #and any other installtions steps required for the project
 ```
-You can then access the web app from `localhost:8080` in your favourate browser!
 
 # Adding PHP extension
 

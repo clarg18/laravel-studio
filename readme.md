@@ -23,12 +23,10 @@ cd laravel-studio
 ```
 ./studio composer create-project laravel/laravel example-app
 ```
-
 5) Use docker-compose to build and bring up the containers.
 ```
 ./studio up -d
 ```
-
 You can then access the web app from `localhost:8080` in your favourate browser!
 
 # Existing project
@@ -39,6 +37,13 @@ cp ./src/.env.example ./src/.env
 ./studio composer install
 ./studio artisan key:generate
  #and any other installtions steps required for the project
+```
+# Connecting your App to the MySql Container.
+
+Make sure you edit your .env file to include `mysql` as the host
+
+```
+DB_CONNECTION=mysql
 ```
 
 # Adding PHP extension

@@ -1,34 +1,34 @@
 #!/usr/bin/env bash
-
+RUN_PATH=$(dirname "$0")
 
 if [ "$1" == "setup" ]; then
 	cp example.env .env
-	mkdir -p ./src
-	mkdir -p ./docker/mysql
-	sed -i "/HOST_UID=/c\HOST_UID=$(id -u)" .env
-	sed -i "/HOST_GID=/c\HOST_GID=$(id -g)" .env
+	mkdir -p "$RUN_PATH"/src
+	mkdir -p "$RUN_PATH"/docker/mysql
+	sed -i "/HOST_UID=/c\HOST_UID=$(id -u)" "$RUN_PATH"/.env
+	sed -i "/HOST_GID=/c\HOST_GID=$(id -g)" "$RUN_PATH"/.env
 elif [ "$1" == "enable-composer-cache" ]; then
-	sed -i "s/# COMPOSER_CONFIG/COMPOSER_CONFIG/" .env
-  sed -i "s/# COMPOSER_CACHE_DIR/COMPOSER_CACHE_DIR/" .env
-  sed -i 's/#- "${COMPOSER_CACHE_DIR}/- "${COMPOSER_CACHE_DIR}/' docker-compose.yml
-  sed -i 's/#- "${COMPOSER_CONFIG}/- "${COMPOSER_CONFIG}/' docker-compose.yml
+	sed -i "s/# COMPOSER_CONFIG/COMPOSER_CONFIG/" "$RUN_PATH"/.env
+  sed -i "s/# COMPOSER_CACHE_DIR/COMPOSER_CACHE_DIR/" "$RUN_PATH"/.env
+  sed -i 's/#- "${COMPOSER_CACHE_DIR}/- "${COMPOSER_CACHE_DIR}/' "$RUN_PATH"/docker-compose.yml
+  sed -i 's/#- "${COMPOSER_CONFIG}/- "${COMPOSER_CONFIG}/' "$RUN_PATH"/docker-compose.yml
 elif [ "$1" == "disable-composer-cache" ]; then
-  sed -i "s/^COMPOSER_CONFIG/# COMPOSER_CONFIG/" .env
-  sed -i "s/^COMPOSER_CACHE_DIR/# COMPOSER_CACHE_DIR/" .env
-  sed -i 's/^- "${COMPOSER_CACHE_DIR}/#- "${COMPOSER_CACHE_DIR}/' docker-compose.yml
-  sed -i 's/^- "${COMPOSER_CONFIG}/#- "${COMPOSER_CONFIG}/' docker-compose.yml
+  sed -i "s/^COMPOSER_CONFIG/# COMPOSER_CONFIG/" "$RUN_PATH"/.env
+  sed -i "s/^COMPOSER_CACHE_DIR/# COMPOSER_CACHE_DIR/" "$RUN_PATH"/.env
+  sed -i 's/^- "${COMPOSER_CACHE_DIR}/#- "${COMPOSER_CACHE_DIR}/' "$RUN_PATH"/docker-compose.yml
+  sed -i 's/^- "${COMPOSER_CONFIG}/#- "${COMPOSER_CONFIG}/' "$RUN_PATH"/docker-compose.yml
 elif [ "$1" == "build" ]; then
-  sudo docker-compose build
+  sudo docker-compose --project-directory "$RUN_PATH" build
 elif [ "$1" == "up" ]; then
-	sudo docker-compose "$@"
+	sudo docker-compose  --project-directory "$RUN_PATH" "$@"
 elif [ "$1" == "down" ]; then
-    sudo docker-compose down
+    sudo docker-compose  --project-directory "$RUN_PATH" down
 elif [ "$1" == "composer" ]; then
-  sudo docker-compose run --rm php "$@"
+  sudo docker-compose  --project-directory "$RUN_PATH" run --rm php "$@"
 elif [ "$1" == "artisan" ]; then
-  docker-compose exec php php "$@"
+  sudo docker-compose  --project-directory "$RUN_PATH" exec php php "$@"
 elif [ "$1" == "npm" ]; then
-  docker-compose run --rm "$@"
+  sudo docker-compose  --project-directory "$RUN_PATH" run --rm "$@"
 fi
 
 
